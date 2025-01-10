@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -37,9 +38,19 @@ android {
     buildFeatures {
         compose = true
     }
+    dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":favorite"))
+    implementation("androidx.compose.ui:ui:1.5.1")
+    implementation("androidx.navigation:navigation-compose:2.7.2")
+    implementation("com.google.dagger:hilt-android:2.44")
+    ksp("com.google.dagger:hilt-compiler:2.44")
+
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

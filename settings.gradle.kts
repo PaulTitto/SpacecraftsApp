@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Spacecrafts App"
 include(":app")
+include(":core")
+include(":favorite")
