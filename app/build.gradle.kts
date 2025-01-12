@@ -1,23 +1,28 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
     namespace = "com.mosalab.spacecraftsapp"
-    compileSdk = 34
+    compileSdk = 35
 
+//    dynamicFeatures += ":favorite"
+//    dynamicFeatures += listOf(":favorite")
+    dynamicFeatures += mutableSetOf(":favorite")
+//    dynamicFeatures = listOf(":favorite")
     defaultConfig {
         applicationId = "com.mosalab.spacecraftsapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+//    dynamicFeatures = listOf(":favorite") // Specify the dynamic feature module
 
     buildTypes {
         release {
@@ -35,23 +40,38 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
-    dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {
+//    implementation(project(":core"))
+//    implementation(project(":favorite"))
     implementation(project(":core"))
     implementation(project(":favorite"))
+    ksp("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
+    // Compose
     implementation("androidx.compose.ui:ui:1.5.1")
     implementation("androidx.navigation:navigation-compose:2.7.2")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.48")
+
+    // Hilt untuk Jetpack Compose
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("com.google.dagger:hilt-android:2.44")
     ksp("com.google.dagger:hilt-compiler:2.44")
 
+    // KSP
+    ksp("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
 
 
+    implementation("androidx.room:room-runtime:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.0")
+    ksp("androidx.room:room-compiler:2.5.0")
 
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    ksp("com.google.dagger:hilt-compiler:2.44")
+    // Library lainnya
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

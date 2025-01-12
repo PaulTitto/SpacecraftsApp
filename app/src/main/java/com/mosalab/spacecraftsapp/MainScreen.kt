@@ -1,27 +1,40 @@
 package com.mosalab.spacecraftsapp
 
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Text
+import androidx.compose.material3.Icon
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.mosalab.spacecraftsapp.Screen.DetailScreen
+import com.mosalab.spacecraftsapp.Screen.HomeScreen
+import com.mosalab.spacecraftsapp.core.ViewModel.DetailViewModel
+import com.mosalab.spacecraftsapp.core.ViewModel.HomeViewModel
+import com.mosalab.spacecraftsapp.favorite.FavoriteScreen
 
 @Composable
-fun MainScreen(modifier: Modifier) {
+fun MainScreen(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
-            BottomNavigation {
-                BottomNavigationItem(
+            NavigationBar {
+                NavigationBarItem(
                     selected = false,
                     onClick = { navController.navigate("home") },
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                    icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
                     label = { Text("Home") }
                 )
-                BottomNavigationItem(
+                NavigationBarItem(
                     selected = false,
                     onClick = { navController.navigate("favorites") },
-                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Favorites") },
+                    icon = { Icon(Icons.Filled.Favorite, contentDescription = "Favorites") },
                     label = { Text("Favorites") }
                 )
             }
@@ -32,11 +45,16 @@ fun MainScreen(modifier: Modifier) {
             startDestination = "home",
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable("home") { HomeScreen(navController) }
+            composable("home") {
+                // Menggunakan Hilt untuk mendapatkan ViewModel
+                val viewModel: HomeViewModel = hiltViewModel()
+                HomeScreen(navController, viewModel)
+            }
             composable("favorites") { FavoriteScreen(navController) }
             composable("detail/{id}") { backStackEntry ->
                 val id = backStackEntry.arguments?.getString("id") ?: ""
-                DetailScreen(id)
+                val viewModel: DetailViewModel = hiltViewModel()
+                DetailScreen(id, viewModel)
             }
         }
     }
