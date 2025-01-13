@@ -8,10 +8,10 @@ plugins {
 android {
     namespace = "com.mosalab.spacecraftsapp"
     compileSdk = 35
-
+    dynamicFeatures += setOf(":favorite")
 //    dynamicFeatures += ":favorite"
 //    dynamicFeatures += listOf(":favorite")
-    dynamicFeatures += mutableSetOf(":favorite")
+//    dynamicFeatures += mutableSetOf(":favorite")
 //    dynamicFeatures = listOf(":favorite")
     defaultConfig {
         applicationId = "com.mosalab.spacecraftsapp"
@@ -43,10 +43,12 @@ android {
 }
 
 dependencies {
-//    implementation(project(":core"))
-//    implementation(project(":favorite"))
     implementation(project(":core"))
-    implementation(project(":favorite"))
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.compose.ui:ui:1.5.1")
+    implementation("androidx.navigation:navigation-compose:2.7.2")
+    implementation("com.google.dagger:hilt-android:2.44")
+    ksp("com.google.dagger:hilt-compiler:2.44")
     ksp("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
     // Compose
     implementation("androidx.compose.ui:ui:1.5.1")
