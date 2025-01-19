@@ -1,4 +1,5 @@
 plugins {
+<<<<<<< HEAD
     id("com.android.dynamic-feature")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
@@ -6,6 +7,14 @@ plugins {
 
 android {
     namespace = "com.mosalab.spacecraftsapp.favorite"
+=======
+    alias(libs.plugins.android.dynamic.feature)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+}
+android {
+    namespace = "com.mosalab.spacecraftisro.favorite"
+>>>>>>> 0ad0322 (Initial commit)
     compileSdk = 35
 
     defaultConfig {
@@ -16,6 +25,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+<<<<<<< HEAD
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -29,10 +39,29 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+=======
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding = true
+>>>>>>> 0ad0322 (Initial commit)
     }
 }
 
 dependencies {
+<<<<<<< HEAD
     ksp("com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.13")
 //    implementation(project(":app"))
     implementation(project(":core"))
@@ -66,3 +95,16 @@ dependencies {
 
     ksp("com.google.dagger:hilt-compiler:2.44")
 }
+=======
+    implementation(project(":app"))
+    implementation(project(":core"))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+}
+>>>>>>> 0ad0322 (Initial commit)

@@ -1,11 +1,21 @@
 plugins {
     alias(libs.plugins.android.library)
+<<<<<<< HEAD
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.mosalab.spacecraftsapp.core"
+=======
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    id("kotlin-parcelize")
+}
+
+android {
+    namespace = "com.mosalab.spacecraftisro.core"
+>>>>>>> 0ad0322 (Initial commit)
     compileSdk = 35
 
     defaultConfig {
@@ -25,15 +35,27 @@ android {
         }
     }
     compileOptions {
+<<<<<<< HEAD
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "11"
+=======
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+>>>>>>> 0ad0322 (Initial commit)
     }
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation(project(":core"))
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.compose.ui:ui:1.5.1")
@@ -85,4 +107,32 @@ dependencies {
 
 ksp {
     arg("room.schemaLocation", "$projectDir/schemas") // Provide schema export directory
+=======
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    api(libs.recyclerview)
+    api(libs.material)
+    api(libs.glide)
+
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    androidTestImplementation(libs.room.testing)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    api(libs.koin.android)
+>>>>>>> 0ad0322 (Initial commit)
 }

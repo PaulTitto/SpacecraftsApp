@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //pluginManagement {
 //    repositories {
 //        google {
@@ -31,6 +32,13 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+=======
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+>>>>>>> 0ad0322 (Initial commit)
     }
 }
 dependencyResolutionManagement {
@@ -40,9 +48,13 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+<<<<<<< HEAD
 
 rootProject.name = "Spacecrafts App"
 include(":app", ":core", ":favorite")
+=======
+rootProject.name = "Spacecraft ISRO"
+>>>>>>> 0ad0322 (Initial commit)
 include(":app")
 include(":core")
 include(":favorite")
