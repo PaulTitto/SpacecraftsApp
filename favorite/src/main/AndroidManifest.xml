@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 <?xml version="1.0" encoding="utf-8"?>
->>>>>>> 0ad0322 (Initial commit)
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution">
 
@@ -11,11 +8,6 @@
         <dist:delivery>
             <dist:install-time />
         </dist:delivery>
-<<<<<<< HEAD
-        <dist:fusing dist:include="true" />
-    </dist:module>
-</manifest>
-=======
 
         <dist:fusing dist:include="true" />
     </dist:module>
@@ -34,4 +26,3 @@
     </application>
 
 </manifest>
->>>>>>> 0ad0322 (Initial commit)

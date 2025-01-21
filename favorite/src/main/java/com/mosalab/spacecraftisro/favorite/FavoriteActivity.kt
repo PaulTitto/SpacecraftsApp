@@ -12,85 +12,7 @@ import com.mosalab.spacecraftisro.detail.DetailSpacecraftActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
-//class FavoriteActivity : AppCompatActivity() {
-//
-//    private val favoriteViewModel: FavoriteViewModel by viewModel()
-//    private var _binding: ActivityFavoriteBinding? = null
-//    private val binding get() = _binding!!
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        _binding = ActivityFavoriteBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        val spacecraftAdapter = SpacecraftAdapter()
-//        spacecraftAdapter.onItemClick = { selectedData ->
-//            val intent = Intent(this, DetailSpacecraftActivity::class.java)
-//            intent.putExtra(DetailSpacecraftActivity.EXTRA_DATA, selectedData)
-//            startActivity(intent)
-//        }
-//
-//        favoriteViewModel.favoriteSpacecraft.observe(this) { dataSpacecraft ->
-//            spacecraftAdapter.submitList(dataSpacecraft)
-////            binding.viewEmpty.viewEmptyRoot.visibility =
-////                if (dataSpacecraft.isNotEmpty()) View.GONE else View.VISIBLE
-//        }
-//
-//        with(binding.rvSpacecraft) {
-//            layoutManager = LinearLayoutManager(this@FavoriteActivity)
-//            setHasFixedSize(true)
-//            adapter = spacecraftAdapter
-//        }
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        _binding = null
-//    }
-//}
 
-//
-//class FavoriteActivity : AppCompatActivity() {
-//
-//    private val favoriteViewModel: FavoriteViewModel by viewModel()
-//    private lateinit var binding: ActivityFavoriteBinding
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//        binding = ActivityFavoriteBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//        loadKoinModules(favoriteModule)
-//
-//        supportActionBar?.title = "Spacecraft App"
-//
-//        val spacecraftAdapter = SpacecraftAdapter()
-//        spacecraftAdapter.onItemClick = { selectedData ->
-//            val intent = Intent(this, DetailSpacecraftActivity::class.java)
-//            intent.putExtra(DetailSpacecraftActivity.EXTRA_DATA, selectedData)
-//            startActivity(intent)
-//        }
-//
-//        favoriteViewModel.favoriteSpacecraft.observe(this) { dataSpacecraft ->
-//            spacecraftAdapter.submitList(dataSpacecraft)
-//
-////            binding.viewEmpty.viewEmptyRoot.visibility =
-////                if (dataSpacecraft.isNotEmpty()) View.GONE else View.VISIBLE
-//        }
-//
-//        with(binding.rvSpacecraft) {
-//            layoutManager = LinearLayoutManager(this@FavoriteActivity)
-//            setHasFixedSize(true)
-//            adapter = spacecraftAdapter
-//        }
-//    }
-//
-////    override fun onDestroy() {
-////        super.onDestroy()
-////        binding = null
-////    }
-//}
 
 class FavoriteActivity : AppCompatActivity() {
 
@@ -108,23 +30,30 @@ class FavoriteActivity : AppCompatActivity() {
         // Load Koin modules
         loadKoinModules(favoriteModule)
 
-//        supportActionBar?.title = "Favorite Spacecraft"
+        supportActionBar?.title = "List Favorite Spacecraft"
+
 
 
         // Setup RecyclerView
         val spacecraftAdapter = SpacecraftAdapter().apply {
             onItemClick = { selectedData ->
                 val intent = Intent(this@FavoriteActivity, DetailSpacecraftActivity::class.java)
-                intent.putExtra(DetailSpacecraftActivity.EXTRA_DATA, selectedData)
+                intent.putExtra(DetailSpacecraftActivity.DATA_KEY, selectedData)
                 startActivity(intent)
             }
         }
 
-        // Observe ViewModel
         favoriteViewModel.favoriteSpacecraft.observe(this) { dataSpacecraft ->
             spacecraftAdapter.submitList(dataSpacecraft)
 
-//            binding.viewEmpty.root.visibility = if (dataSpacecraft.isNotEmpty()) View.GONE else View.VISIBLE
+            // Toggle views visibility
+            if (dataSpacecraft.isNotEmpty()) {
+                binding.lottieAnimationView.visibility = View.GONE
+                binding.rvSpacecraft.visibility = View.VISIBLE
+            } else {
+                binding.lottieAnimationView.visibility = View.VISIBLE
+                binding.rvSpacecraft.visibility = View.GONE
+            }
         }
 
         with(binding.rvSpacecraft) {

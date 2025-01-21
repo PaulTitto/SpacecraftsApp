@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/item_list_spacecraft" />
 
+
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyle"

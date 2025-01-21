@@ -4,57 +4,53 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.helper.widget.Layer
 import androidx.core.view.GravityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.mosalab.spacecraftisro.databinding.ActivityMainBinding
-import com.mosalab.spacecraftisro.databinding.FragmentHomeBinding
 import com.mosalab.spacecraftisro.home.HomeFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private lateinit var binding: ActivityMainBinding
-    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawer: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        drawerLayout = binding.drawerLayout
+        drawer = binding.drawerLayout
 
         val toggle = ActionBarDrawerToggle(
             this,
-            drawerLayout,
+            drawer,
             binding.appBarMain.toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        drawerLayout.addDrawerListener(toggle)
+        drawer.addDrawerListener(toggle)
         toggle.syncState()
 
         binding.navView.setNavigationItemSelectedListener(this)
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, HomeFragment())
                 .commit()
             supportActionBar?.title = getString(R.string.app_name)
         }
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         var fragment: Fragment? = null
         var title = getString(R.string.app_name)
-        when(item.itemId){
-            R.id.nav_home ->{
+
+        when (item.itemId) {
+            R.id.nav_home -> {
                 fragment = HomeFragment()
                 title = getString(R.string.app_name)
             }
@@ -64,13 +60,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        if (fragment != null){
+        fragment?.let {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, fragment)
+                .replace(R.id.nav_host_fragment, it)
                 .commit()
         }
+
         supportActionBar?.title = title
-        drawerLayout.closeDrawer(GravityCompat.START)
+        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 }
