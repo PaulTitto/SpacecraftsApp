@@ -8,6 +8,9 @@ import com.mosalab.spacecraftisro.core.data.source.remote.RemoteDataSource
 import com.mosalab.spacecraftisro.core.data.source.remote.network.ApiService
 import com.mosalab.spacecraftisro.core.domain.repository.ISpacecraftRepository
 import com.mosalab.spacecraftisro.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -20,19 +23,26 @@ import kotlin.math.sin
 val databaseModule = module {
     factory { get<SpacecraftDatabase>().spacecraftDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             SpacecraftDatabase::class.java, "Spacecraft.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration().openHelperFactory(factory).build()
     }
 }
 
 val networkModule = module {
     single {
+        val hostname = "isro.vercel.app"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/8oTTIaobTfGy0BpRmvIHeXMdSpyRJdC9vuqLAxbodqM=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
 

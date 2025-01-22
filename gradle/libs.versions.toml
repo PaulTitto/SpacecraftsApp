@@ -21,8 +21,13 @@ activity = "1.10.0"
 junitKtx = "1.2.1"
 lottie = "6.4.1"
 shimmer = "0.5.0"
+androidDatabaseSqlcipher = "4.5.4"
+sqliteKtx = "2.4.0"
+
 
 [libraries]
+android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "androidDatabaseSqlcipher" }
+androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqliteKtx" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }

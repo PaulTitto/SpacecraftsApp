@@ -38,6 +38,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
+
+
     implementation(libs.shimmer)
 
     implementation(libs.androidx.core.ktx)
