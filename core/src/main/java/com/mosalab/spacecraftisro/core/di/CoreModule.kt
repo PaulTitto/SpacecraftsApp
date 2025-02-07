@@ -22,12 +22,11 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<SpacecraftDatabase>().spacecraftDao() }
     single {
-        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
-        val factory = SupportFactory(passphrase)
+
         Room.databaseBuilder(
             androidContext(),
             SpacecraftDatabase::class.java, "Spacecraft.db"
-        ).fallbackToDestructiveMigration().openHelperFactory(factory).build()
+        ).fallbackToDestructiveMigration().build()
     }
 }
 
